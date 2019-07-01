@@ -11,7 +11,6 @@ warnings.filterwarnings("ignore")
 data = pd.read_csv(Path('Datasets/College.csv'))
 print(data["Private"].value_counts())
 
-
 nulls = pd.DataFrame(data.isnull().sum().sort_values(ascending=False)[:25])
 nulls.columns  = ['Null Count']
 nulls.index.name  = 'Feature'
@@ -27,21 +26,21 @@ for i in range(1, 7):
     kmeans = KMeans(n_clusters=i, init='k-means++', max_iter=300, n_init=10, random_state=0)
     kmeans.fit(x)
     wcss.append(kmeans.inertia_)
-print(wcss)
-plt.plot(range(1,7),wcss)
-plt.title('The Elbow Graph')
-plt.xlabel('Number of Clusters')
-plt.ylabel('Wcss')
+# print(wcss)
+# plt.plot(range(1,7),wcss)
+# plt.title('The Elbow Graph')
+# plt.xlabel('Number of Clusters')
+# plt.ylabel('Wcss')
 # plt.show()
 
-
 # nclusters = 3 # this is the k in kmeans
-km = KMeans(n_clusters=5)
+km = KMeans(n_clusters=3)
 km.fit(x)
 y_cluster_kmeans = km.predict(x)
 from sklearn import metrics
 score = metrics.silhouette_score(x, y_cluster_kmeans)
 print("Accuracy score is: ", score)
+
 
 
 # Standardiazation is not required as the data is normalized
@@ -67,3 +66,7 @@ y_cluster_kmeans= km.predict(x_pca)
 from sklearn import metrics
 score = metrics.silhouette_score(x_pca, y_cluster_kmeans)
 print(score)
+
+plt.scatter(x.iloc[:, 0], x.iloc[:, 1], c=y_cluster_kmeans, s=50, cmap='viridis')
+centers = kmeans.cluster_centers_
+# plt.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5);

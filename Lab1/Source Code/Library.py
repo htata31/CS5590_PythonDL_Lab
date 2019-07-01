@@ -11,6 +11,7 @@ class Library:
     @staticmethod
     def display_books():
         print("The books available in library are:- ", Library.book_list)
+        print("\n")
 
     @staticmethod
     def checkout_books(name):
@@ -47,17 +48,19 @@ class Student(Library): # Inherting the library class for checkout and check in 
             self.student_booklist.append(name)
             Library.checkout_books(name)
             print("Book is issued successfully")
+            print("\n")
         else:
             print("Book is not available")
 
     def return_book(self,name):
         self.student_booklist.remove(name)
         Library.checkin_books(name)
-        self.student_booklist.remove(name)
         print("Book is returned Successfully")
+        print("\n")
     
     def studentbooklist(self):
         print("Book student cart are ", self.student_booklist)
+        print("\n")
         
 
             
@@ -83,5 +86,6 @@ student.student_info()
 temp = LoanBooks(["Heads You Win"])
 temp.display_books()
 # Accessing of the private member of a class
+print("Accessing of the private member of a class")
 student._Student__phone_number # correct way
-student.__phone_number # Wrong way to access you will get an error
+# student.__phone_number # Wrong way to access you will get an error
